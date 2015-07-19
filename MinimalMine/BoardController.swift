@@ -36,12 +36,9 @@ class BoardController {
      
         // assign mines to squares
         for r in 0..<self.rows {
-            
             for c in 0..<self.columns {
-                
                 self.squares[r][c].isRevealed = false
                 self.calculateIsMineLocationForSquare(squares[r][c])
-                
             }
         }
         
@@ -55,7 +52,7 @@ class BoardController {
     }
 
     func calculateIsMineLocationForSquare(square: Square) {
-        square.isMineLocation = ((arc4random()%10) == 0) // 1-in-10 chance that each location contains a mine
+        square.isMineLocation = ((arc4random()%8) == 0) // 1-in-8 chance that each location contains a mine
     }
     
     func calculateNumNeighborMinesForSquare(square : Square) {

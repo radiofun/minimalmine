@@ -41,7 +41,7 @@ class BoardViewController: UIViewController, SquareViewInteractionDelegate {
     var yPosition: CGFloat = 0.0
     
     var board: BoardController!
-    var squareViews: [SquareView] = []
+    var squareCellViews: [[SquareCellView]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,17 +72,38 @@ class BoardViewController: UIViewController, SquareViewInteractionDelegate {
         
         self.board = BoardController(rows: self.numberOfRows, columns: self.numberOfColumns)
         
-        // Render cells
+        self.drawCells()
+    }
+    
+    func resetBoard() {
+        // resets the board with new mine locations & sets isRevealed to false for each square
+        self.board.resetBoard()
+        // iterates through each button and resets the text to the default value
+        
         for r in 0..<Int(self.numberOfRows) {
             for c in 0..<Int(self.numberOfColumns) {
-        
-                let squareView = SquareView(squareModel: self.board.squares[r][c], squareFrame: CGRectMake(self.xPosition, self.yPosition, self.squareSize, self.squareSize), delegate: self)
-                self.containerView.addSubview(squareView)
+                squareCellViews[r][c].setBackgroundColor()
+            }
+        }
+    }
+    
+    func drawCells() {
+        // Render Cells
+        for r in 0..<Int(self.numberOfRows) {
+            
+            var squareCellViewColumn:[SquareCellView] = []
+            
+            for c in 0..<Int(self.numberOfColumns) {
                 
-                self.squareViews.append(squareView)
+                let squareCellView = SquareCellView(squareModel: self.board.squares[r][c], squareFrame: CGRectMake(self.xPosition, self.yPosition, self.squareSize, self.squareSize), delegate: self)
+                self.containerView.addSubview(squareCellView)
+                
+                squareCellViewColumn.append(squareCellView)
                 
                 self.yPosition += self.squareSize
             }
+            
+            self.squareCellViews.append(squareCellViewColumn)
             
             self.xPosition += self.squareSize
             self.yPosition = 0.0
@@ -93,44 +114,49 @@ class BoardViewController: UIViewController, SquareViewInteractionDelegate {
         self.containerView.center = self.view.center
     }
     
-    func resetBoard() {
-        // resets the board with new mine locations & sets isRevealed to false for each square
-        self.board.resetBoard()
-        // iterates through each button and resets the text to the default value
-        for squareView in self.squareViews {
-            squareView.setBackgroundColor()
-        }
-    }
-    
     func startNewGame() {
         //start new game
         self.resetBoard()
     }
 
-    func minePressed() {
+    func revealSquareCellView(squareCellView: SquareCellView) {
+        if !squareCellView.square.isRevealed {
+            squareCellView.square.isRevealed = true
+            squareCellView.setBackgroundColor()
+            
+            if squareCellView.square.numNeighboringMines == 0 {
+                
+                let neighboringCells = self.board.getNeighboringSquares(squareCellView.square)
+                
+                for cell in neighboringCells {
+                    
+                    let squareCellView = self.squareCellViews[cell.row][cell.col]
+                    self.revealSquareCellView(squareCellView)
+                }
+            }
+            
+        }
+    }
     
+    func minePressed() {
+        println("minePressed")
     }
     
     // SquareViewInteractionDelegate methods
     
-    func tappedSquareView(gesture: UITapGestureRecognizer) {
+    func tappedSquareCellView(gesture: UITapGestureRecognizer) {
         println("tapped")
         
-        let squareView = gesture.view as! SquareView
+        let squareCellView = gesture.view as! SquareCellView
+        self.revealSquareCellView(squareCellView)
         
-        if !squareView.square.isRevealed {
-            squareView.square.isRevealed = true
-            squareView.setBackgroundColor()
-            //self.moves++
-        }
-        
-        if squareView.square.isMineLocation {
-            squareView.setBackgroundColor()
+        if squareCellView.square.isMineLocation {
+            squareCellView.setBackgroundColor()
             self.minePressed()
         }
     }
     
-    func longPressedSquareView(gesture: UILongPressGestureRecognizer) {
+    func longPressedSquareCellView(gesture: UILongPressGestureRecognizer) {
         
         if gesture.state == UIGestureRecognizerState.Began {
             println("longPressed")

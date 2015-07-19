@@ -1,5 +1,5 @@
 //
-//  SquareView.swift
+//  SquareCellView.swift
 //  MinimalMine
 //
 //  Created by Jonathon Toon on 7/18/15.
@@ -10,12 +10,12 @@ import UIKit
 
 protocol SquareViewInteractionDelegate {
     
-    func tappedSquareView(gesture: UITapGestureRecognizer)
-    func longPressedSquareView(gesture: UILongPressGestureRecognizer)
+    func tappedSquareCellView(gesture: UITapGestureRecognizer)
+    func longPressedSquareCellView(gesture: UILongPressGestureRecognizer)
     
 }
 
-class SquareView : UIView {
+class SquareCellView : UIView {
     
     var square:Square
     var circleView: UIView!
@@ -48,11 +48,11 @@ class SquareView : UIView {
         self.counterLabel.sizeToFit()
         self.circleView.addSubview(self.counterLabel)
         
-        self.tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tappedSquareView:")
+        self.tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tappedSquareCellView:")
         self.tapGestureRecognizer.numberOfTapsRequired = 1
         self.addGestureRecognizer(self.tapGestureRecognizer)
         
-        self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPressedSquareView:")
+        self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPressedSquareCellView:")
         self.addGestureRecognizer(self.longPressGestureRecognizer)
     }
     
@@ -84,17 +84,17 @@ class SquareView : UIView {
     
     func setCounterLabel() {
         
-        self.counterLabel.text = self.square.numNeighboringMines == 0 ? "" : String(self.square.numNeighboringMines)
+        self.counterLabel.text = String(self.square.numNeighboringMines)
         self.counterLabel.sizeToFit()
         self.counterLabel.center = CGPointMake(self.circleView.frame.size.width/2, self.circleView.frame.size.height/2)
 
     }
     
-    func tappedSquareView(gesture: UITapGestureRecognizer) {
-        if self.delegate != nil { self.delegate.tappedSquareView(gesture) }
+    func tappedSquareCellView(gesture: UITapGestureRecognizer) {
+        if self.delegate != nil { self.delegate.tappedSquareCellView(gesture) }
     }
     
-    func longPressedSquareView(gesture: UILongPressGestureRecognizer) {
-        if self.delegate != nil { self.delegate.longPressedSquareView(gesture) }
+    func longPressedSquareCellView(gesture: UILongPressGestureRecognizer) {
+        if self.delegate != nil { self.delegate.longPressedSquareCellView(gesture) }
     }
 }
