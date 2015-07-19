@@ -28,7 +28,7 @@ extension UIView {
     
 }
 
-class BoardViewController: UIViewController, SquareViewInteractionDelegate {
+class BoardViewController: UIViewController, UIGestureRecognizerDelegate, SquareViewInteractionDelegate {
 
     var containerView: UIView!
     
@@ -46,7 +46,7 @@ class BoardViewController: UIViewController, SquareViewInteractionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.colorWithCSS("#180107")
+        self.view.backgroundColor = UIColor.colorWithCSS("#20272C")
     
         self.initBoard()
         self.startNewGame()
@@ -82,7 +82,7 @@ class BoardViewController: UIViewController, SquareViewInteractionDelegate {
         
         for r in 0..<Int(self.numberOfRows) {
             for c in 0..<Int(self.numberOfColumns) {
-                squareCellViews[r][c].setBackgroundColor()
+                squareCellViews[r][c].drawSquareCellView()
             }
         }
     }
@@ -120,9 +120,18 @@ class BoardViewController: UIViewController, SquareViewInteractionDelegate {
     }
 
     func revealSquareCellView(squareCellView: SquareCellView) {
-        if !squareCellView.square.isRevealed {
+        
+        if squareCellView.square.isMineLocation {
+            
             squareCellView.square.isRevealed = true
-            squareCellView.setBackgroundColor()
+            squareCellView.drawSquareCellView()
+            self.minePressed()
+        
+        } else if !squareCellView.square.isRevealed && !squareCellView.square.isFlagged {
+            
+            squareCellView.square.isRevealed = true
+            
+            squareCellView.drawSquareCellView()
             
             if squareCellView.square.numNeighboringMines == 0 {
                 
@@ -131,11 +140,27 @@ class BoardViewController: UIViewController, SquareViewInteractionDelegate {
                 for cell in neighboringCells {
                     
                     let squareCellView = self.squareCellViews[cell.row][cell.col]
+                    
                     self.revealSquareCellView(squareCellView)
                 }
             }
-            
         }
+    }
+    
+    func addFlagToSquareCellView(squareCellView: SquareCellView) {
+    
+        if !squareCellView.square.isFlagged {
+            if !squareCellView.square.isRevealed {
+                
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                
+                squareCellView.square.isFlagged = true
+                squareCellView.drawSquareCellView()
+            }
+        } else {
+            squareCellView.square.isFlagged = false
+        }
+        
     }
     
     func minePressed() {
@@ -148,19 +173,26 @@ class BoardViewController: UIViewController, SquareViewInteractionDelegate {
         println("tapped")
         
         let squareCellView = gesture.view as! SquareCellView
-        self.revealSquareCellView(squareCellView)
         
-        if squareCellView.square.isMineLocation {
-            squareCellView.setBackgroundColor()
-            self.minePressed()
+        if gesture.state == UIGestureRecognizerState.Began {
+            
+        } else if gesture.state == UIGestureRecognizerState.Ended {
+
+            self.revealSquareCellView(squareCellView)
+            
         }
     }
     
     func longPressedSquareCellView(gesture: UILongPressGestureRecognizer) {
         
         if gesture.state == UIGestureRecognizerState.Began {
-            println("longPressed")
-            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            
+            let squareCellView = gesture.view as! SquareCellView
+            self.addFlagToSquareCellView(squareCellView)
         }
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

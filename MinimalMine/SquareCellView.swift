@@ -19,7 +19,9 @@ class SquareCellView : UIView {
     
     var square:Square
     var circleView: UIView!
+    var flagImageView: UIImageView!
     var counterLabel: UILabel!
+    
     
     var delegate: SquareViewInteractionDelegate!
     
@@ -41,15 +43,20 @@ class SquareCellView : UIView {
         self.circleView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
         self.addSubview(self.circleView)
         
+        self.flagImageView = UIImageView(image: UIImage(named: "flagIcon"))
+        self.flagImageView.frame = CGRectMake(0, 0, 19, 22)
+        self.flagImageView.center = CGPointMake(self.circleView.frame.size.width/2, self.circleView.frame.size.height/2)
+        self.flagImageView.alpha = 0.0
+        self.circleView.addSubview(self.flagImageView)
+        
         self.counterLabel = UILabel()
         self.counterLabel.text = ""
-        self.counterLabel.font = UIFont(name: "AvenirNext-Bold", size: 17.0)
+        self.counterLabel.font = UIFont(name: "AvenirNext-DemiBold  ", size: 17.0)
         self.counterLabel.textColor = UIColor.blackColor().colorWithAlphaComponent(0.75)
         self.counterLabel.sizeToFit()
         self.circleView.addSubview(self.counterLabel)
         
         self.tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tappedSquareCellView:")
-        self.tapGestureRecognizer.numberOfTapsRequired = 1
         self.addGestureRecognizer(self.tapGestureRecognizer)
         
         self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPressedSquareCellView:")
@@ -60,10 +67,11 @@ class SquareCellView : UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setBackgroundColor() {
+    func drawSquareCellView() {
         self.circleView.backgroundColor = UIColor.whiteColor()
         
         if self.square.isRevealed {
+            
             if self.square.isMineLocation {
                 self.circleView.backgroundColor = UIColor.blueColor()
             } else if self.square.numNeighboringMines == 1 {
@@ -79,6 +87,9 @@ class SquareCellView : UIView {
             if !self.square.isMineLocation {
                 self.setCounterLabel()
             }
+      
+        } else if self.square.isFlagged {
+            self.flagImageView.alpha = 1.0
         }
     }
     

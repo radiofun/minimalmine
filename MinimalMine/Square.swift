@@ -17,6 +17,7 @@ class Square {
     var numNeighboringMines = 0
     var isMineLocation = false
     var isRevealed = false
+    var isFlagged = false
     
     init(row:Int, col:Int) {
         //store the row and column of the square in the grid
