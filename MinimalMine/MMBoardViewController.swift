@@ -43,8 +43,8 @@ class MMBoardViewController: UIViewController, UIGestureRecognizerDelegate, MMSq
     var board: MMBoardLogicController!
     var squareCellViews: [[MMSquareCellView]] = []
     
-    let squareCellViewBounceDuration: NSTimeInterval = 0.1
-    let squareCellViewScaleAmount: CGFloat = 0.90
+    let squareCellViewBounceDuration: NSTimeInterval = 0.25
+    let squareCellViewScaleAmount: CGFloat = 0.75
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,17 +128,7 @@ class MMBoardViewController: UIViewController, UIGestureRecognizerDelegate, MMSq
             
             squareCellView.square.isRevealed = true
             squareCellView.drawSquareCellView()
-            
-            UIView.animateWithDuration(self.squareCellViewBounceDuration, delay:0.0, options:nil, animations: {
-                
-                squareCellView.transform = CGAffineTransformMakeScale(1.0, 1.0)
-                
-                }, completion: {
-                    
-                    finished in
-                    
-                    self.minePressed()
-            })
+            self.minePressed()
         
         } else if !squareCellView.square.isRevealed && !squareCellView.square.isFlagged {
             
@@ -146,21 +136,7 @@ class MMBoardViewController: UIViewController, UIGestureRecognizerDelegate, MMSq
             squareCellView.drawSquareCellView()
             
             self.revealAdjacentSquareCellViews(squareCellView)
-            
-            UIView.animateWithDuration(self.squareCellViewBounceDuration, delay:0.0, options:nil, animations: {
-                
-                squareCellView.transform = CGAffineTransformMakeScale(1.0, 1.0)
-                
-            }, completion: nil)
         
-        } else {
-            
-            UIView.animateWithDuration(self.squareCellViewBounceDuration, delay:0.0, options:nil, animations: {
-                
-                squareCellView.transform = CGAffineTransformMakeScale(1.0, 1.0)
-                
-            }, completion: nil)
-            
         }
     }
     
@@ -174,16 +150,7 @@ class MMBoardViewController: UIViewController, UIGestureRecognizerDelegate, MMSq
                 
                 let adjacentSquareCellView = self.squareCellViews[cell.row][cell.col]
                 
-                UIView.animateWithDuration(self.squareCellViewBounceDuration, delay:0.0, options:nil, animations: {
-                    
-                    adjacentSquareCellView.transform = CGAffineTransformMakeScale(self.squareCellViewScaleAmount, self.squareCellViewScaleAmount)
-                    
-                    }, completion:{
-                        
-                        finished in
-                        
-                        self.revealSquareCellView(adjacentSquareCellView)
-                })
+                self.revealSquareCellView(adjacentSquareCellView)
             }
         }
     }
@@ -221,7 +188,18 @@ class MMBoardViewController: UIViewController, UIGestureRecognizerDelegate, MMSq
     }
     
     func touchUpSquareCellView(squareCellView: MMSquareCellView) {
-        self.revealSquareCellView(squareCellView)
+        
+        if !squareCellView.square.isRevealed {
+            UIView.animateWithDuration(self.squareCellViewBounceDuration+0.1, delay:0.0, options:nil, animations: {
+                
+                squareCellView.transform = CGAffineTransformMakeScale(1.0, 1.0)
+                
+                }, completion:{
+                    
+                    finished in
+                    self.revealSquareCellView(squareCellView)
+            })
+        }
     }
     
     func longPressedSquareCellView(gesture: UILongPressGestureRecognizer) {

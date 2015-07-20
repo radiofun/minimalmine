@@ -72,19 +72,23 @@ class MMSquareCellView : UIButton {
         
         if self.square.isRevealed {
             
-            if self.square.isMineLocation {
-                self.circleView.backgroundColor = UIColor.blueColor()
-            } else if self.square.numNeighboringMines == 1 {
-                self.circleView.backgroundColor = UIColor.normalLevelColor()
-            } else if self.square.numNeighboringMines == 2 {
-                self.circleView.backgroundColor = UIColor.mediumLevelColor()
-            } else if self.square.numNeighboringMines == 3 {
-                self.circleView.backgroundColor = UIColor.highLevelColor()
-            } else if self.square.numNeighboringMines > 3 {
-                self.circleView.backgroundColor = UIColor.maximumLevelColor()
-            } else {
-                self.circleView.backgroundColor = UIColor.defaultLevelRevealedColor()
-            }
+            UIView.animateWithDuration(0.5, delay: 0.0, options: nil, animations: {
+                
+                if self.square.isMineLocation {
+                    self.circleView.backgroundColor = UIColor.blueColor()
+                } else if self.square.numNeighboringMines == 1 {
+                    self.circleView.backgroundColor = UIColor.normalLevelColor()
+                } else if self.square.numNeighboringMines == 2 {
+                    self.circleView.backgroundColor = UIColor.mediumLevelColor()
+                } else if self.square.numNeighboringMines == 3 {
+                    self.circleView.backgroundColor = UIColor.highLevelColor()
+                } else if self.square.numNeighboringMines > 3 {
+                    self.circleView.backgroundColor = UIColor.maximumLevelColor()
+                } else {
+                    self.circleView.backgroundColor = UIColor.defaultLevelRevealedColor()
+                }
+                
+            }, completion: nil)
             
             if !self.square.isMineLocation {
                 self.setCounterLabel()

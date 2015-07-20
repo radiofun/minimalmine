@@ -55,7 +55,7 @@ class MMBoardLogicController {
 
     // algorithm for deciding whether object will contain a mine
     func calculateIsMineLocationForSquare(square: MMSquare) {
-        square.isMineLocation = ((arc4random()%10) == 0) // 1-in-8 chance that each location contains a mine
+        square.isMineLocation = ((arc4random()%8) == 0) // 1-in-8 chance that each location contains a mine
     }
     
     // how many cell adjacent to this one contain a mine
