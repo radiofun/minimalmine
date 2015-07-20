@@ -1,5 +1,5 @@
 //
-//  BoardController.swift
+//  MMBoardLogicController.swift
 //  MinimalMine
 //
 //  Created by Jonathon Toon on 7/18/15.
@@ -8,22 +8,24 @@
 
 import Foundation
 
-class BoardController {
+class MMBoardLogicController {
 
     let rows:Int
     let columns:Int
-    var squares:[[Square]] = []
+    var squares:[[MMSquare]] = []
     
     init(rows:Int, columns:Int) {
+        
         self.rows = rows
         self.columns = columns
         
+        // create Square data model for each cell
         for r in 0..<self.rows {
-            var squareRow:[Square] = []
+            var squareRow:[MMSquare] = []
             
             for c in 0..<self.columns {
              
-                let square = Square(row: r, col: c)
+                let square = MMSquare(row: r, col: c)
                 squareRow.append(square)
                 
             }
@@ -51,11 +53,14 @@ class BoardController {
         
     }
 
-    func calculateIsMineLocationForSquare(square: Square) {
-        square.isMineLocation = ((arc4random()%8) == 0) // 1-in-8 chance that each location contains a mine
+    // algorithm for deciding whether object will contain a mine
+    func calculateIsMineLocationForSquare(square: MMSquare) {
+        square.isMineLocation = ((arc4random()%10) == 0) // 1-in-8 chance that each location contains a mine
     }
     
-    func calculateNumNeighborMinesForSquare(square : Square) {
+    // how many cell adjacent to this one contain a mine
+    func calculateNumNeighborMinesForSquare(square : MMSquare) {
+        
         // first get a list of adjacent squares
         let neighbors = getNeighboringSquares(square)
         var numNeighboringMines = 0
@@ -66,11 +71,13 @@ class BoardController {
                 numNeighboringMines++
             }
         }
+        
         square.numNeighboringMines = numNeighboringMines
     }
     
-    func getNeighboringSquares(square : Square) -> [Square] {
-        var neighbors:[Square] = []
+    // get array of neighboring cells' square objects
+    func getNeighboringSquares(square : MMSquare) -> [MMSquare] {
+        var neighbors:[MMSquare] = []
         
         // an array of tuples containing the relative position of each neighbor to the square
         let adjacentOffsets =
@@ -80,7 +87,7 @@ class BoardController {
         
         for (rowOffset,colOffset) in adjacentOffsets {
             // getTileAtLocation might return a Square, or it might return nil, so use the optional datatype "?"
-            let optionalNeighbor:Square? = getTileAtLocation(square.row+rowOffset, col: square.col+colOffset)
+            let optionalNeighbor:MMSquare? = getObjectAtLocation(square.row+rowOffset, col: square.col+colOffset)
             // only evaluates true if the optional tile isn't nil
             if let neighbor = optionalNeighbor {
                 neighbors.append(neighbor)
@@ -89,7 +96,8 @@ class BoardController {
         return neighbors
     }
     
-    func getTileAtLocation(row : Int, col : Int) -> Square? {
+    // return a square object for a particular cell location
+    func getObjectAtLocation(row : Int, col : Int) -> MMSquare? {
         if row >= 0 && row < self.rows && col >= 0 && col < self.columns {
             return squares[row][col]
         } else {

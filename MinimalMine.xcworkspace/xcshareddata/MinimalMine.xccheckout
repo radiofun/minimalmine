@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>CB1DCF24-D28B-4FE6-99F1-8F8842B5F7D6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MinimalMine</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4BD77D2FB629F4B78AE5F9A4AA4D92A6A41F1BAE</key>
+		<string>https://github.com/jonathontoon/war-of-mine.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MinimalMine.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4BD77D2FB629F4B78AE5F9A4AA4D92A6A41F1BAE</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/jonathontoon/war-of-mine.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4BD77D2FB629F4B78AE5F9A4AA4D92A6A41F1BAE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4BD77D2FB629F4B78AE5F9A4AA4D92A6A41F1BAE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MinimalMine</string>
+		</dict>
+	</array>
+</dict>
+</plist>

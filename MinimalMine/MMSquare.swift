@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Square {
+class MMSquare {
     
     let row:Int
     let col:Int

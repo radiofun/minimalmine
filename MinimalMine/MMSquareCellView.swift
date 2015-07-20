@@ -1,5 +1,5 @@
 //
-//  SquareCellView.swift
+//  MMSquareCellView.swift
 //  MinimalMine
 //
 //  Created by Jonathon Toon on 7/18/15.
@@ -8,27 +8,27 @@
 
 import UIKit
 
-protocol SquareViewInteractionDelegate {
+protocol MMSquareViewInteractionDelegate {
     
     func tappedSquareCellView(gesture: UITapGestureRecognizer)
     func longPressedSquareCellView(gesture: UILongPressGestureRecognizer)
     
 }
 
-class SquareCellView : UIView {
+class MMSquareCellView : UIView {
     
-    var square:Square
+    var square:MMSquare
     var circleView: UIView!
     var flagImageView: UIImageView!
     var counterLabel: UILabel!
     
     
-    var delegate: SquareViewInteractionDelegate!
+    var delegate: MMSquareViewInteractionDelegate!
     
     var tapGestureRecognizer: UITapGestureRecognizer!
     var longPressGestureRecognizer: UILongPressGestureRecognizer!
     
-    init(squareModel:Square, squareFrame: CGRect, delegate: SquareViewInteractionDelegate!) {
+    init(squareModel: MMSquare, squareFrame: CGRect, delegate: MMSquareViewInteractionDelegate!) {
         self.square = squareModel
         self.delegate = delegate
         
@@ -51,8 +51,8 @@ class SquareCellView : UIView {
         
         self.counterLabel = UILabel()
         self.counterLabel.text = ""
-        self.counterLabel.font = UIFont(name: "AvenirNext-DemiBold  ", size: 17.0)
-        self.counterLabel.textColor = UIColor.blackColor().colorWithAlphaComponent(0.75)
+        self.counterLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 17.0)
+        self.counterLabel.textColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
         self.counterLabel.sizeToFit()
         self.circleView.addSubview(self.counterLabel)
         
@@ -68,20 +68,22 @@ class SquareCellView : UIView {
     }
     
     func drawSquareCellView() {
-        self.circleView.backgroundColor = UIColor.whiteColor()
+        self.circleView.backgroundColor = UIColor.defaultLevelColor()
         
         if self.square.isRevealed {
             
             if self.square.isMineLocation {
                 self.circleView.backgroundColor = UIColor.blueColor()
             } else if self.square.numNeighboringMines == 1 {
-                self.circleView.backgroundColor = UIColor.colorWithCSS("#FE5A1D")
+                self.circleView.backgroundColor = UIColor.normalLevelColor()
             } else if self.square.numNeighboringMines == 2 {
-                self.circleView.backgroundColor = UIColor.colorWithCSS("#D8230E")
+                self.circleView.backgroundColor = UIColor.mediumLevelColor()
             } else if self.square.numNeighboringMines == 3 {
-                self.circleView.backgroundColor = UIColor.colorWithCSS("#970F01")
+                self.circleView.backgroundColor = UIColor.highLevelColor()
             } else if self.square.numNeighboringMines > 3 {
-                self.circleView.backgroundColor = UIColor.colorWithCSS("#5E0000")
+                self.circleView.backgroundColor = UIColor.maximumLevelColor()
+            } else {
+                self.circleView.backgroundColor = UIColor.defaultLevelRevealedColor()
             }
             
             if !self.square.isMineLocation {

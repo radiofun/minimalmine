@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4429167F1B5A8A070081D198 /* BoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4429167E1B5A8A070081D198 /* BoardController.swift */; };
-		442916811B5A8BA80081D198 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442916801B5A8BA80081D198 /* Square.swift */; };
-		442916831B5A8F6A0081D198 /* SquareCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442916821B5A8F6A0081D198 /* SquareCellView.swift */; };
+		4429167F1B5A8A070081D198 /* MMBoardLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4429167E1B5A8A070081D198 /* MMBoardLogicController.swift */; };
+		442916811B5A8BA80081D198 /* MMSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442916801B5A8BA80081D198 /* MMSquare.swift */; };
+		442916831B5A8F6A0081D198 /* MMSquareCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442916821B5A8F6A0081D198 /* MMSquareCellView.swift */; };
+		442AA1F91B5D05D1005B89FF /* MMColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442AA1F81B5D05D1005B89FF /* MMColors.swift */; };
 		44B41CEA1B5968C2003A4F8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B41CE91B5968C2003A4F8D /* AppDelegate.swift */; };
-		44B41CEC1B5968C2003A4F8D /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B41CEB1B5968C2003A4F8D /* BoardViewController.swift */; };
+		44B41CEC1B5968C2003A4F8D /* MMBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B41CEB1B5968C2003A4F8D /* MMBoardViewController.swift */; };
 		44B41CEF1B5968C2003A4F8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44B41CED1B5968C2003A4F8D /* Main.storyboard */; };
 		44B41CF11B5968C2003A4F8D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44B41CF01B5968C2003A4F8D /* Images.xcassets */; };
 		44B41CF41B5968C2003A4F8D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44B41CF21B5968C2003A4F8D /* LaunchScreen.xib */; };
@@ -31,13 +32,14 @@
 
 /* Begin PBXFileReference section */
 		13EF567D553BB6875C07BB81 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		4429167E1B5A8A070081D198 /* BoardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardController.swift; sourceTree = "<group>"; };
-		442916801B5A8BA80081D198 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
-		442916821B5A8F6A0081D198 /* SquareCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareCellView.swift; sourceTree = "<group>"; };
+		4429167E1B5A8A070081D198 /* MMBoardLogicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMBoardLogicController.swift; sourceTree = "<group>"; };
+		442916801B5A8BA80081D198 /* MMSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSquare.swift; sourceTree = "<group>"; };
+		442916821B5A8F6A0081D198 /* MMSquareCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMSquareCellView.swift; sourceTree = "<group>"; };
+		442AA1F81B5D05D1005B89FF /* MMColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMColors.swift; sourceTree = "<group>"; };
 		44B41CE41B5968C2003A4F8D /* MinimalMine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinimalMine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44B41CE81B5968C2003A4F8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44B41CE91B5968C2003A4F8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		44B41CEB1B5968C2003A4F8D /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
+		44B41CEB1B5968C2003A4F8D /* MMBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMBoardViewController.swift; sourceTree = "<group>"; };
 		44B41CEE1B5968C2003A4F8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		44B41CF01B5968C2003A4F8D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		44B41CF31B5968C2003A4F8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -67,6 +69,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		442AA1FA1B5D069D005B89FF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4429167E1B5A8A070081D198 /* MMBoardLogicController.swift */,
+				442916801B5A8BA80081D198 /* MMSquare.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		442AA1FB1B5D06A4005B89FF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				44B41CEB1B5968C2003A4F8D /* MMBoardViewController.swift */,
+				442916821B5A8F6A0081D198 /* MMSquareCellView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		442AA1FC1B5D06A9005B89FF /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				442AA1F81B5D05D1005B89FF /* MMColors.swift */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
 		44B41CDB1B5968C2003A4F8D = {
 			isa = PBXGroup;
 			children = (
@@ -91,10 +119,9 @@
 			isa = PBXGroup;
 			children = (
 				44B41CE91B5968C2003A4F8D /* AppDelegate.swift */,
-				44B41CEB1B5968C2003A4F8D /* BoardViewController.swift */,
-				4429167E1B5A8A070081D198 /* BoardController.swift */,
-				442916821B5A8F6A0081D198 /* SquareCellView.swift */,
-				442916801B5A8BA80081D198 /* Square.swift */,
+				442AA1FB1B5D06A4005B89FF /* Views */,
+				442AA1FA1B5D069D005B89FF /* Model */,
+				442AA1FC1B5D06A9005B89FF /* Other */,
 				44B41CED1B5968C2003A4F8D /* Main.storyboard */,
 				44B41CF01B5968C2003A4F8D /* Images.xcassets */,
 				44B41CF21B5968C2003A4F8D /* LaunchScreen.xib */,
@@ -296,11 +323,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				442916811B5A8BA80081D198 /* Square.swift in Sources */,
-				442916831B5A8F6A0081D198 /* SquareCellView.swift in Sources */,
-				44B41CEC1B5968C2003A4F8D /* BoardViewController.swift in Sources */,
+				442916811B5A8BA80081D198 /* MMSquare.swift in Sources */,
+				442916831B5A8F6A0081D198 /* MMSquareCellView.swift in Sources */,
+				44B41CEC1B5968C2003A4F8D /* MMBoardViewController.swift in Sources */,
+				442AA1F91B5D05D1005B89FF /* MMColors.swift in Sources */,
 				44B41CEA1B5968C2003A4F8D /* AppDelegate.swift in Sources */,
-				4429167F1B5A8A070081D198 /* BoardController.swift in Sources */,
+				4429167F1B5A8A070081D198 /* MMBoardLogicController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  BoardViewController.swift
+//  MMBoardViewController.swift
 //  MinimalMine
 //
 //  Created by Jonathon Toon on 7/18/15.
@@ -28,7 +28,7 @@ extension UIView {
     
 }
 
-class BoardViewController: UIViewController, UIGestureRecognizerDelegate, SquareViewInteractionDelegate {
+class MMBoardViewController: UIViewController, UIGestureRecognizerDelegate, MMSquareViewInteractionDelegate {
 
     var containerView: UIView!
     
@@ -40,13 +40,13 @@ class BoardViewController: UIViewController, UIGestureRecognizerDelegate, Square
     var xPosition: CGFloat = 0.0
     var yPosition: CGFloat = 0.0
     
-    var board: BoardController!
-    var squareCellViews: [[SquareCellView]] = []
+    var board: MMBoardLogicController!
+    var squareCellViews: [[MMSquareCellView]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.colorWithCSS("#20272C")
+        self.view.backgroundColor = UIColor.boardBackgroundColor()
     
         self.initBoard()
         self.startNewGame()
@@ -70,7 +70,7 @@ class BoardViewController: UIViewController, UIGestureRecognizerDelegate, Square
         self.squareSize = (self.containerView.frame.size.width - (self.xPosition*2))/CGFloat(self.numberOfRows)
         self.numberOfColumns = Int((self.containerView.frame.size.height - self.yPosition)/self.squareSize)
         
-        self.board = BoardController(rows: self.numberOfRows, columns: self.numberOfColumns)
+        self.board = MMBoardLogicController(rows: self.numberOfRows, columns: self.numberOfColumns)
         
         self.drawCells()
     }
@@ -91,11 +91,11 @@ class BoardViewController: UIViewController, UIGestureRecognizerDelegate, Square
         // Render Cells
         for r in 0..<Int(self.numberOfRows) {
             
-            var squareCellViewColumn:[SquareCellView] = []
+            var squareCellViewColumn:[MMSquareCellView] = []
             
             for c in 0..<Int(self.numberOfColumns) {
                 
-                let squareCellView = SquareCellView(squareModel: self.board.squares[r][c], squareFrame: CGRectMake(self.xPosition, self.yPosition, self.squareSize, self.squareSize), delegate: self)
+                let squareCellView = MMSquareCellView(squareModel: self.board.squares[r][c], squareFrame: CGRectMake(self.xPosition, self.yPosition, self.squareSize, self.squareSize), delegate: self)
                 self.containerView.addSubview(squareCellView)
                 
                 squareCellViewColumn.append(squareCellView)
@@ -119,7 +119,7 @@ class BoardViewController: UIViewController, UIGestureRecognizerDelegate, Square
         self.resetBoard()
     }
 
-    func revealSquareCellView(squareCellView: SquareCellView) {
+    func revealSquareCellView(squareCellView: MMSquareCellView) {
         
         if squareCellView.square.isMineLocation {
             
@@ -131,23 +131,31 @@ class BoardViewController: UIViewController, UIGestureRecognizerDelegate, Square
             
             squareCellView.square.isRevealed = true
             
-            squareCellView.drawSquareCellView()
+            UIView.animateWithDuration(0.1, animations: {
+                
+                squareCellView.drawSquareCellView()
+                
+            }, completion: {
             
-            if squareCellView.square.numNeighboringMines == 0 {
+                finished in
                 
-                let neighboringCells = self.board.getNeighboringSquares(squareCellView.square)
-                
-                for cell in neighboringCells {
+                if squareCellView.square.numNeighboringMines == 0 {
                     
-                    let squareCellView = self.squareCellViews[cell.row][cell.col]
+                    let neighboringCells = self.board.getNeighboringSquares(squareCellView.square)
                     
-                    self.revealSquareCellView(squareCellView)
+                    for cell in neighboringCells {
+                        
+                        let squareCellView = self.squareCellViews[cell.row][cell.col]
+                        
+                        self.revealSquareCellView(squareCellView)
+                    }
                 }
-            }
+                
+            })
         }
     }
     
-    func addFlagToSquareCellView(squareCellView: SquareCellView) {
+    func addFlagToSquareCellView(squareCellView: MMSquareCellView) {
     
         if !squareCellView.square.isFlagged {
             if !squareCellView.square.isRevealed {
@@ -172,7 +180,7 @@ class BoardViewController: UIViewController, UIGestureRecognizerDelegate, Square
     func tappedSquareCellView(gesture: UITapGestureRecognizer) {
         println("tapped")
         
-        let squareCellView = gesture.view as! SquareCellView
+        let squareCellView = gesture.view as! MMSquareCellView
         
         if gesture.state == UIGestureRecognizerState.Began {
             
@@ -187,7 +195,7 @@ class BoardViewController: UIViewController, UIGestureRecognizerDelegate, Square
         
         if gesture.state == UIGestureRecognizerState.Began {
             
-            let squareCellView = gesture.view as! SquareCellView
+            let squareCellView = gesture.view as! MMSquareCellView
             self.addFlagToSquareCellView(squareCellView)
         }
     }
