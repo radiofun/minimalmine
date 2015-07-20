@@ -10,18 +10,18 @@ import UIKit
 
 protocol MMSquareViewInteractionDelegate {
     
-    func tappedSquareCellView(gesture: UITapGestureRecognizer)
+    func touchDownSquareCellView(squareCellView: MMSquareCellView)
+    func touchUpSquareCellView(squareCellView: MMSquareCellView)
     func longPressedSquareCellView(gesture: UILongPressGestureRecognizer)
     
 }
 
-class MMSquareCellView : UIView {
+class MMSquareCellView : UIButton {
     
     var square:MMSquare
-    var circleView: UIView!
+    var circleView: UIButton!
     var flagImageView: UIImageView!
     var counterLabel: UILabel!
-    
     
     var delegate: MMSquareViewInteractionDelegate!
     
@@ -37,7 +37,7 @@ class MMSquareCellView : UIView {
         self.backgroundColor = UIColor.clearColor()
         self.clipsToBounds = true
         
-        self.circleView = UIView(frame: CGRectMake(0, 0, self.frame.size.width-4, self.frame.size.height-4))
+        self.circleView = UIButton(frame: CGRectMake(0, 0, self.frame.size.width-4, self.frame.size.height-4))
         self.circleView.layer.cornerRadius = self.circleView.frame.size.width/2
         self.circleView.backgroundColor = UIColor.whiteColor()
         self.circleView.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
@@ -55,12 +55,12 @@ class MMSquareCellView : UIView {
         self.counterLabel.textColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
         self.counterLabel.sizeToFit()
         self.circleView.addSubview(self.counterLabel)
+      
+        self.circleView.addTarget(self, action: "touchDownSquareCellView:", forControlEvents: UIControlEvents.TouchDown)
+        self.circleView.addTarget(self, action: "touchUpSquareCellView:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        self.tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tappedSquareCellView:")
-        self.addGestureRecognizer(self.tapGestureRecognizer)
-        
-        self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPressedSquareCellView:")
-        self.addGestureRecognizer(self.longPressGestureRecognizer)
+//        self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "longPressedSquareCellView:")
+//        self.addGestureRecognizer(self.longPressGestureRecognizer)
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -103,8 +103,16 @@ class MMSquareCellView : UIView {
 
     }
     
-    func tappedSquareCellView(gesture: UITapGestureRecognizer) {
-        if self.delegate != nil { self.delegate.tappedSquareCellView(gesture) }
+    func touchDownSquareCellView(circleView: UIButton) {
+        println("hi")
+        
+        if self.delegate != nil { self.delegate.touchDownSquareCellView(circleView.superview as! MMSquareCellView) }
+    }
+    
+    func touchUpSquareCellView(circleView: UIButton) {
+         println("bye")
+        
+        if self.delegate != nil { self.delegate.touchUpSquareCellView(circleView.superview as! MMSquareCellView) }
     }
     
     func longPressedSquareCellView(gesture: UILongPressGestureRecognizer) {
