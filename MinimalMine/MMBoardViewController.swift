@@ -137,7 +137,7 @@ class MMBoardViewController: UIViewController, UIGestureRecognizerDelegate, MMSq
                     
                     finished in
                     
-                    self.minePressed()
+                    self.revealAllSquareCellViewsWithBombs()
             })
         
         } else if !squareCellView.square.isRevealed && !squareCellView.square.isFlagged {
@@ -186,6 +186,39 @@ class MMBoardViewController: UIViewController, UIGestureRecognizerDelegate, MMSq
                 })
             }
         }
+    }
+    
+    func revealAllSquareCellViewsWithBombs() {
+        
+        for r in 0..<Int(self.numberOfRows) {
+            
+            for c in 0..<Int(self.numberOfColumns) {
+                
+                if self.squareCellViews[r][c].square.isMineLocation {
+                    
+                    self.squareCellViews[r][c].square.isRevealed = true
+                    self.squareCellViews[r][c].drawSquareCellView()
+                    
+                    UIView.animateWithDuration(self.squareCellViewBounceDuration, delay:0.0, options:nil, animations: {
+                        
+                        self.squareCellViews[r][c].transform = CGAffineTransformMakeScale(self.squareCellViewScaleAmount, self.squareCellViewScaleAmount)
+                        
+                    }, completion:{
+                    
+                        finished in
+                        
+                        UIView.animateWithDuration(self.squareCellViewBounceDuration, delay:0.0, options:nil, animations: {
+                            
+                            self.squareCellViews[r][c].transform = CGAffineTransformMakeScale(1.0, 1.0)
+                            
+                        }, completion: nil)
+                    })
+                    
+                }
+                
+            }
+        }
+        
     }
     
     func addFlagToSquareCellView(squareCellView: MMSquareCellView) {
